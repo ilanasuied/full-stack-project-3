@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Single Page Application for Contacts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="spa.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Contacts Notebook</h1>
+            <div class="page active" id="login">
+                <ul>
+                    <li><a href="#" data-target="contact" class="nav-link btn">CONTACTS</a></li>
+                    <li><a href="#" data-target="register" class="nav-link btn">REGISTER</a></li>
+                    <li><a href="#" data-target="login" class="nav-link btn white-btn">LOGIN</a></li>
+                </ul>
+                <div class="form-box">
+
+                    <!---------------------- Login -------------------------->
+                    <div class="login-container" id="loginC">
+                        <div class="top">
+                            <span>Don't have an account? <a href="#" data-target="register" class="nav-link">Register</a> </span>
+                            <h2>Login</h2>
+                        </div>
+                        <div class="input-box">
+                            <input type="text" class="input-field" placeholder="Username or Email">
+                            <i class="bx bx-user"></i>
+                        </div>
+                        <div class="input-box">
+                            <input type="password" class="input-field" placeholder="Password">
+                            <i class="bx bx-lock-alt"></i>
+                        </div>
+                        <div class="input-box">
+                            <input type="submit" class="submit" value="Sign In">
+                        </div>
+                        <div class="two-col">
+                            <div class="one">
+                                <input type="checkbox" id="login-check">
+                                <label for="login-check">Remember me</label>
+                            </div>
+                            <div class="two">
+                                <label><a href="#">Forgot password?</a></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page" id="register">
+                <ul>
+                    <li><a href="#" data-target="contact" class="nav-link btn">CONTACTS</a></li>
+                    <li><a href="#" data-target="register" class="nav-link btn">REGISTER</a></li>
+                    <li><a href="#" data-target="login" class="nav-link btn white-btn">LOGIN</a></li>
+                </ul>
+                <div class="form-box">
+                    <!---------------------- Registration -------------------------->
+                    <div class="register-container" id="registerC">
+                        <div class="top">
+                            <span>Have an account? <a href="#" data-target="login" class="nav-link">Login</a> </span>
+                            <h2>Register</h2>
+                        </div>
+                        <div class="input-box">
+                            <input type="text" class="input-field" placeholder="Firstname">
+                            <i class="bx bx-user"></i>
+                        </div>
+                        <div class="input-box">
+                            <input type="text" class="input-field" placeholder="Lastname">
+                            <i class="bx bx-user"></i>
+                        </div>
+                        <div class="input-box">
+                            <input type="text" class="input-field" placeholder="Email">
+                            <i class="bx bx-envelope"></i>
+                        </div>
+                        <div class="input-box">
+                            <input type="password" class="input-field" placeholder="Password">
+                            <i class="bx bx-lock-alt"></i>
+                        </div>
+                        <div class="input-box">
+                            <input type="submit" class="submit" value="Register">
+                        </div>
+                        <div class="two-col">
+                            <div class="one">
+                                <input type="checkbox" id="register-check">
+                                <label for="register-check">Remember me</label>
+                            </div>
+                            <div class="two">
+                                <label><a href="#">Terms & Conditions</a></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                       
+            <div class="page" id="contact">
+                <ul>
+                    <li><a href="#" data-target="contact" class="nav-link btn">CONTACTS</a></li>
+                    <li><a href="#" data-target="register" class="nav-link btn">REGISTER</a></li>
+                    <li><a href="#" data-target="login" class="nav-link btn white-btn">LOGIN</a></li>
+                </ul>
+                <h2>Contacts Page</h2>
+            </div>
+        </header>
+    </main>
+    <script src="spa.js"></script>
+</body>
+</html>
