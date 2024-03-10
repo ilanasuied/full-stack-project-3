@@ -1,18 +1,21 @@
 // username: {
+//     name: '####'
+//     email: '####'
 //     contact: {
 //         name1: number1,
 //         name2: number2
 //         }
 //     password: '####'
-
 // }
 
 
 //this function add a new user to the database and update the currentUser
-function addUser(database, username, password){
+function addUser(database, username, password, name, email){
     let user = {
         username: username,
         password: password,
+        name: name,
+        email: email,
         contact: {
             sivane: 123,
             lea: 123

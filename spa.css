@@ -6,7 +6,7 @@
 }
 
 body {
-    background: url("/IMG/pexels-stephan-seeber-1261728.jpg");
+    background: url("./IMG/pexels-stephan-seeber-1261728.jpg");
     background-size: cover;
     background-position: no-repeat;
     background-attachment: fixed;
@@ -27,6 +27,16 @@ h1 {
     text-align: left;
 }
 
+
+.msg{
+    border: 1px solid rgb(248, 85, 85);
+    background-color: rgb(243, 174, 174);
+    border-radius: 20px;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+}
+
+
 ul {
     position: absolute;
     top: 0;
@@ -40,6 +50,14 @@ ul {
     padding: 0;
     z-index: 1;
 }
+
+
+li .nav-link{
+    text-decoration: none;
+    color: black;
+}
+
+
 
 .active {
     display: block;

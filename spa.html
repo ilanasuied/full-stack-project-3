@@ -6,7 +6,7 @@
     <title>Single Page Application for Contacts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="spa.css">
+    <link rel="stylesheet" href="./spa.css">
 </head>
 <body>
     <main>
@@ -63,24 +63,25 @@
                             <span>Have an account? <a href="#" data-target="login" class="nav-link">Login</a> </span>
                             <h2>Register</h2>
                         </div>
+                        <div id="msg"></div>
                         <div class="input-box">
-                            <input type="text" class="input-field" placeholder="Firstname">
+                            <input type="text" class="input-field" placeholder="Username" id="username">
                             <i class="bx bx-user"></i>
                         </div>
                         <div class="input-box">
-                            <input type="text" class="input-field" placeholder="Lastname">
+                            <input type="text" class="input-field" placeholder="Name" id="name">
                             <i class="bx bx-user"></i>
                         </div>
                         <div class="input-box">
-                            <input type="text" class="input-field" placeholder="Email">
+                            <input type="text" class="input-field" placeholder="Email" id="email">
                             <i class="bx bx-envelope"></i>
                         </div>
                         <div class="input-box">
-                            <input type="password" class="input-field" placeholder="Password">
+                            <input type="password" class="input-field" placeholder="Password" id="password">
                             <i class="bx bx-lock-alt"></i>
                         </div>
                         <div class="input-box">
-                            <input type="submit" class="submit" value="Register">
+                            <input type="submit" class="submit" value="Register" id="regist">
                         </div>
                         <div class="two-col">
                             <div class="one">
@@ -106,5 +107,9 @@
         </header>
     </main>
     <script src="spa.js"></script>
+    <script src="client.js"></script>
+    <script src="network.js"></script>
+    <script src="server.js"></script>
+    <script src="database-api.js"></script>
 </body>
 </html>

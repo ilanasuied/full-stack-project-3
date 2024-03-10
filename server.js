@@ -4,23 +4,30 @@ function post(database, data){
     console.log(data);
     let username;
     let password;
+    let name;
+    let email;
     let keyValuePairs = data.split('&');
     for (let pair of keyValuePairs) {
-        // Split each pair by '=' to separate the key and value
         let parts = pair.split('=');
-        // Check if the key is 'username'
         if (parts[0] === 'username') {
-            // Extract the username (value)
             username = parts[1];
         }
-        // Check if the key is 'password'
-        if (parts[0] === 'password') {
-            // Extract the password (value)
+        else if (parts[0] === 'password') {
             password = parts[1];
         }
+        else if (parts[0] === 'name') {
+            name = parts[1];
+        }
+        else if (parts[0] === 'email') {
+            email = parts[1];
+        }
     }
-    addUser(database, username, password);
-    return `Hello, ${username}!`;
+    console.log(`the username is ${username}`)
+    if(searchUser(username)){
+        return false;
+    }
+    addUser(database, username, password, name, email);
+    return true;
 } 
 
 //get from the database all the contacts of the current user
