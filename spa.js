@@ -46,14 +46,16 @@ const app = {
     },
     log: function (ev) {
         ev.preventDefault();       // get the attribute which is also the id of the page (the link we click on)
-        document.querySelector('.active').classList.remove('active');  // remove the active class from the page that was active
-        document.getElementById('contact').classList.add('active');  // add the active to the current page we clicked on
-        history.pushState({}, 'CONTACT', '#contact');
-        document.getElementById('contact').dispatchEvent(app.show);
+        if (!errorConnection) {
+            document.querySelector('.active').classList.remove('active');  // remove the active class from the page that was active
+            document.getElementById('contact').classList.add('active');  // add the active to the current page we clicked on
+            history.pushState({}, 'CONTACT', '#contact');
+            document.getElementById('contact').dispatchEvent(app.show);
+        }
     },
     regist: function (ev) {
         ev.preventDefault();       // get the attribute which is also the id of the page (the link we click on)
-        if (!usernameAlreadyToken) {
+        if (!errorConnection) {
             document.querySelector('.active').classList.remove('active');  // remove the active class from the page that was active
             document.getElementById('login').classList.add('active');  // add the active to the current page we clicked on
             history.pushState({}, 'LOGIN', '#login');

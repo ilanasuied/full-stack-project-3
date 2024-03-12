@@ -13,7 +13,6 @@ body {
 }
 
 .page {
-    position: fixed;
     width: 100%;
     display: none;
     min-height: 100%;
@@ -29,11 +28,12 @@ h1 {
 
 
 .msg{
-    border: 1px solid rgb(248, 85, 85);
-    background-color: rgb(243, 174, 174);
-    border-radius: 20px;
+    background-color: rgb(248, 85, 85);
+    border: 1px solid rgb(239, 158, 158);
+    border-radius: 10px;
     margin-bottom: 10px;
     padding: 5px 10px;
+    font-size: large;
 }
 
 
@@ -92,15 +92,30 @@ btn.white-btn:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 100px;
 }
 
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15%;
+    margin-bottom: 15%;
+    background-color: rgba(255, 255, 255, 0.2); /* Transparent white background */
+    backdrop-filter: blur(10px); 
+    border-radius: 8%;
+    width: 50%;
+    height: auto;
+}
+
+
 .register-container {
-    width: 500px;
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 5%;
+    margin-top: 10%;
     background-color: rgba(255, 255, 255, 0.2); /* Transparent white background */
     backdrop-filter: blur(10px); 
     border-radius: 50px;
@@ -120,11 +135,12 @@ btn.white-btn:hover {
     margin-left: 5px;
 }
 
-header {
+header , main{
     color: #fff;
     font-size: 30px;
     text-align: center;
     padding: 10px 0 30px 0;
+    margin: 10px ;
 }
 
 .two-form {
@@ -188,16 +204,6 @@ header {
 .two label a {
     text-decoration: none;
     
-}
-
-.login-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 15%;
-    background-color: rgba(255, 255, 255, 0.2); /* Transparent white background */
-    backdrop-filter: blur(10px); 
-    border-radius: 8%;
-    width: 50%;
 }
 
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,34 +9,39 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="./spa.css">
 </head>
+
 <body>
+    <header>
+        <ul>
+            <li><a href="#" data-target="contact" class="nav-link btn" id="contact-page">CONTACTS</a></li>
+            <li><a href="#" data-target="register" class="nav-link btn">REGISTER</a></li>
+            <li><a href="#" data-target="login" class="nav-link btn white-btn">LOGIN</a></li>
+        </ul>
+    </header>
     <main>
-        <header>
             <h1>Contacts Notebook</h1>
             <div class="page active" id="login">
-                <ul>
-                    <li><a href="#" data-target="contact" class="nav-link btn">CONTACTS</a></li>
-                    <li><a href="#" data-target="register" class="nav-link btn">REGISTER</a></li>
-                    <li><a href="#" data-target="login" class="nav-link btn white-btn">LOGIN</a></li>
-                </ul>
+
                 <div class="form-box">
 
                     <!---------------------- Login -------------------------->
                     <div class="login-container" id="loginC">
                         <div class="top">
-                            <span>Don't have an account? <a href="#" data-target="register" class="nav-link">Register</a> </span>
+                            <span>Don't have an account? <a href="#" data-target="register"
+                                    class="nav-link">Register</a> </span>
                             <h2>Login</h2>
                         </div>
+                        <div id="errorMsg"></div>
                         <div class="input-box">
-                            <input type="text" class="input-field" placeholder="Username or Email">
+                            <input type="text" class="input-field" placeholder="Username" id="username-login">
                             <i class="bx bx-user"></i>
                         </div>
                         <div class="input-box">
-                            <input type="password" class="input-field" placeholder="Password">
+                            <input type="password" class="input-field" placeholder="Password" id="password-login">
                             <i class="bx bx-lock-alt"></i>
                         </div>
                         <div class="input-box">
-                            <input type="submit" class="submit" value="Sign In">
+                            <input type="submit" class="submit" id="btnsignin" value="Sign In">
                         </div>
                         <div class="two-col">
                             <div class="one">
@@ -51,11 +57,6 @@
             </div>
 
             <div class="page" id="register">
-                <ul>
-                    <li><a href="#" data-target="contact" class="nav-link btn">CONTACTS</a></li>
-                    <li><a href="#" data-target="register" class="nav-link btn">REGISTER</a></li>
-                    <li><a href="#" data-target="login" class="nav-link btn white-btn">LOGIN</a></li>
-                </ul>
                 <div class="form-box">
                     <!---------------------- Registration -------------------------->
                     <div class="register-container" id="registerC">
@@ -95,16 +96,11 @@
                     </div>
                 </div>
             </div>
-                       
+
             <div class="page" id="contact">
-                <ul>
-                    <li><a href="#" data-target="contact" class="nav-link btn">CONTACTS</a></li>
-                    <li><a href="#" data-target="register" class="nav-link btn">REGISTER</a></li>
-                    <li><a href="#" data-target="login" class="nav-link btn white-btn">LOGIN</a></li>
-                </ul>
                 <h2>Contacts Page</h2>
+                <div id="contact-list"></div>
             </div>
-        </header>
     </main>
     <script src="spa.js"></script>
     <script src="client.js"></script>
@@ -112,4 +108,5 @@
     <script src="server.js"></script>
     <script src="database-api.js"></script>
 </body>
+
 </html>

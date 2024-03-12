@@ -25,16 +25,30 @@ function addUser(database, username, password, name, email){
     database.setItem(username, JSON.stringify(user));
 
     //store in the key 'currentuser' the username of the user that is courently log in 
-    database.setItem('currentUser', username);
+    setCurrentUser(database, username);
 }
 
 
 //this function return true if this user exist, else return false
-function searchUser(username){
-    if(localStorage.getItem(username) === null){
+function searchUser(database, username){
+    if(database.getItem(username) === null){
         return false;
     }
     return true;
+}
+
+//get the password of an user
+function getPassword(database, username){
+    if(database.getItem(username) !== null){
+        let user = JSON.parse(database.getItem(username));
+        return user.password;
+    }
+}
+
+
+//store in the key 'currentuser' the username of the user that is courently log in 
+function setCurrentUser(database, username){
+    database.setItem('currentUser', username);
 }
 
 

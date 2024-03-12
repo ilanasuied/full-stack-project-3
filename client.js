@@ -73,27 +73,57 @@
 //     ourRequest.open('DELETE', localStorage);
 //     ourRequest.send(name);
 // });
-var usernameAlreadyToken = false;
+
+
+
+//new user registration
+var errorConnection = false;
 let registerbtn = document.getElementById('regist');
 registerbtn.addEventListener('click', function(){
-    usernameAlreadyToken = false;
+    errorConnection = false;
     document.getElementById('msg').style.display = 'block';
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
 
-    console.log(username + password);
     let ourRequest = new FXMLHttpRequest();
     ourRequest.onreadystatechange = function () {
         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-            //document.getElementById("").innerHTML = this.responseText;
             if(!this.responseText){
                 document.getElementById("msg").classList.add('msg');
-                document.getElementById("msg").innerHTML = 'this username is already taken';
-                usernameAlreadyToken = true;
+                document.getElementById("msg").innerHTML = 'This username is already taken';
+                errorConnection = true;
                 let interval = setInterval(function(){
                     document.getElementById('msg').style.display = 'none';
+                    clearInterval(interval);
+                },2000);
+            }
+            
+        }
+    }
+
+    ourRequest.open('POST', localStorage);
+    ourRequest.send(`username=${username}&password=${password}&name=${name}&email=${email}`);
+});
+
+
+//an existing user connects to the site
+let loginbtn = document.getElementById('btnsignin');
+loginbtn.addEventListener('click', function(){
+    errorConnection = false;
+    document.getElementById('errorMsg').style.display = 'block';
+    let username = document.getElementById('username-login').value;
+    let password = document.getElementById('password-login').value;
+    let ourRequest = new FXMLHttpRequest();
+    ourRequest.onreadystatechange = function () {
+        if (ourRequest.readyState === 4 && ourRequest.status === 200) {
+            if(!this.responseText){
+                errorConnection = true;
+                document.getElementById("errorMsg").classList.add('msg');
+                document.getElementById("errorMsg").innerHTML = 'Wrong username or password';
+                let interval = setInterval(function(){
+                    document.getElementById('errorMsg').style.display = 'none';
                     clearInterval(interval);
                 },2000);
                 
@@ -102,5 +132,24 @@ registerbtn.addEventListener('click', function(){
     }
 
     ourRequest.open('POST', localStorage);
-    ourRequest.send(`username=${username}&password=${password}&name=${name}&email=${email}`);
+    ourRequest.send(`username=${username}&password=${password}`);
+});
+
+
+//Show all the contact list
+let contact_page = document.getElementById('contact-page');
+contact_page.addEventListener('click', function(){
+    let ourRequest = new FXMLHttpRequest();
+    ourRequest.onreadystatechange = function () {
+        if (ourRequest.readyState === 4 && ourRequest.status === 200) {
+            let htmlContent = '';
+            for (let key in this.responseText) {
+                htmlContent += `<p>${key}: ${this.responseText[key]}</p>`;
+            }
+            document.getElementById("contact-list").innerHTML = htmlContent;
+
+        }
+    }
+    ourRequest.open('GET', localStorage);
+    ourRequest.send();
 });
