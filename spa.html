@@ -19,88 +19,100 @@
         </ul>
     </header>
     <main>
-            <h1>Contacts Notebook</h1>
-            <div class="page active" id="login">
+        <h1>Contacts Notebook</h1>
+        <div class="page active" id="login">
 
-                <div class="form-box">
+            <div class="form-box">
 
-                    <!---------------------- Login -------------------------->
-                    <div class="login-container" id="loginC">
-                        <div class="top">
-                            <span>Don't have an account? <a href="#" data-target="register"
-                                    class="nav-link">Register</a> </span>
-                            <h2>Login</h2>
+                <!---------------------- Login -------------------------->
+                <div class="login-container" id="loginC">
+                    <div class="top">
+                        <span>Don't have an account? <a href="#" data-target="register" class="nav-link">Register</a>
+                        </span>
+                        <h2>Login</h2>
+                    </div>
+                    <div id="errorMsg"></div>
+                    <div class="input-box">
+                        <input type="text" class="input-field" placeholder="Username" id="username-login">
+                        <i class="bx bx-user"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" class="input-field" placeholder="Password" id="password-login">
+                        <i class="bx bx-lock-alt"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="submit" class="submit" id="btnsignin" value="Sign In">
+                    </div>
+                    <div class="two-col">
+                        <div class="one">
+                            <input type="checkbox" id="login-check">
+                            <label for="login-check">Remember me</label>
                         </div>
-                        <div id="errorMsg"></div>
-                        <div class="input-box">
-                            <input type="text" class="input-field" placeholder="Username" id="username-login">
-                            <i class="bx bx-user"></i>
-                        </div>
-                        <div class="input-box">
-                            <input type="password" class="input-field" placeholder="Password" id="password-login">
-                            <i class="bx bx-lock-alt"></i>
-                        </div>
-                        <div class="input-box">
-                            <input type="submit" class="submit" id="btnsignin" value="Sign In">
-                        </div>
-                        <div class="two-col">
-                            <div class="one">
-                                <input type="checkbox" id="login-check">
-                                <label for="login-check">Remember me</label>
-                            </div>
-                            <div class="two">
-                                <label><a href="#">Forgot password?</a></label>
-                            </div>
+                        <div class="two">
+                            <label><a href="#">Forgot password?</a></label>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="page" id="register">
-                <div class="form-box">
-                    <!---------------------- Registration -------------------------->
-                    <div class="register-container" id="registerC">
-                        <div class="top">
-                            <span>Have an account? <a href="#" data-target="login" class="nav-link">Login</a> </span>
-                            <h2>Register</h2>
+        <div class="page" id="register">
+            <div class="form-box">
+                <!---------------------- Registration -------------------------->
+                <div class="register-container" id="registerC">
+                    <div class="top">
+                        <span>Have an account? <a href="#" data-target="login" class="nav-link">Login</a> </span>
+                        <h2>Register</h2>
+                    </div>
+                    <div id="msg"></div>
+                    <div class="input-box">
+                        <input type="text" class="input-field" placeholder="Username" id="username">
+                        <i class="bx bx-user"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" class="input-field" placeholder="Name" id="name">
+                        <i class="bx bx-user"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" class="input-field" placeholder="Email" id="email">
+                        <i class="bx bx-envelope"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" class="input-field" placeholder="Password" id="password">
+                        <i class="bx bx-lock-alt"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="submit" class="submit" value="Register" id="regist">
+                    </div>
+                    <div class="two-col">
+                        <div class="one">
+                            <input type="checkbox" id="register-check">
+                            <label for="register-check">Remember me</label>
                         </div>
-                        <div id="msg"></div>
-                        <div class="input-box">
-                            <input type="text" class="input-field" placeholder="Username" id="username">
-                            <i class="bx bx-user"></i>
-                        </div>
-                        <div class="input-box">
-                            <input type="text" class="input-field" placeholder="Name" id="name">
-                            <i class="bx bx-user"></i>
-                        </div>
-                        <div class="input-box">
-                            <input type="text" class="input-field" placeholder="Email" id="email">
-                            <i class="bx bx-envelope"></i>
-                        </div>
-                        <div class="input-box">
-                            <input type="password" class="input-field" placeholder="Password" id="password">
-                            <i class="bx bx-lock-alt"></i>
-                        </div>
-                        <div class="input-box">
-                            <input type="submit" class="submit" value="Register" id="regist">
-                        </div>
-                        <div class="two-col">
-                            <div class="one">
-                                <input type="checkbox" id="register-check">
-                                <label for="register-check">Remember me</label>
-                            </div>
-                            <div class="two">
-                                <label><a href="#">Terms & Conditions</a></label>
-                            </div>
+                        <div class="two">
+                            <label><a href="#">Terms & Conditions</a></label>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="page" id="contact">
-                <h2>Contacts Page</h2>
-                <div id="contact-list"></div>
+        <div class="page" id="contact">
+            <h2>Contacts Page</h2>
+
+            <div id="contact-list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Contact Name</th>
+                            <th>Phone Number</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody_contact">
+                    </tbody>
+                </table>
             </div>
+        </div>
     </main>
     <script src="spa.js"></script>
     <script src="client.js"></script>

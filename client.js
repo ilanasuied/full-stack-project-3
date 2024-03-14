@@ -138,18 +138,22 @@ loginbtn.addEventListener('click', function(){
 
 //Show all the contact list
 let contact_page = document.getElementById('contact-page');
-contact_page.addEventListener('click', function(){
+contact_page.addEventListener('click', showAllContact);
+function showAllContact(){
     let ourRequest = new FXMLHttpRequest();
     ourRequest.onreadystatechange = function () {
         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
             let htmlContent = '';
             for (let key in this.responseText) {
-                htmlContent += `<p>${key}: ${this.responseText[key]}</p>`;
+                htmlContent += `<tr>
+                                    <td>${key}</td>
+                                    <td>${this.responseText[key]}</td>
+                                </tr>`;
             }
-            document.getElementById("contact-list").innerHTML = htmlContent;
+            document.getElementById("tbody_contact").innerHTML = htmlContent;
 
         }
     }
     ourRequest.open('GET', localStorage);
     ourRequest.send();
-});
+}

@@ -51,6 +51,7 @@ const app = {
             document.getElementById('contact').classList.add('active');  // add the active to the current page we clicked on
             history.pushState({}, 'CONTACT', '#contact');
             document.getElementById('contact').dispatchEvent(app.show);
+            showAllContact();
         }
     },
     regist: function (ev) {
