@@ -157,3 +157,53 @@ function showAllContact(){
     ourRequest.open('GET', localStorage);
     ourRequest.send();
 }
+
+
+// Select the necessary elements
+let addContactButton = document.getElementById('addContactButton');
+let modal = document.getElementById('modal');
+let closeButton = document.getElementsByClassName('close')[0];
+let contactForm = document.getElementById('contactForm');
+
+// Open the modal when the button is clicked
+addContactButton.addEventListener('click', function() {
+  modal.style.display = 'block';
+});
+
+// Close the modal when the user clicks the close button
+closeButton.addEventListener('click', function() {
+  modal.style.display = 'none';
+});
+
+// Close the modal when the user clicks outside of the modal
+window.addEventListener('click', function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+});
+
+// Prevent the modal from closing if the user clicks inside the form
+contactForm.addEventListener('click', function(event) {
+  event.stopPropagation();
+});
+
+
+//add a new contact
+let addbtn = document.getElementById('add_contact');
+addbtn.addEventListener('click', function () {
+    //save the username and the password
+    const name = document.getElementById("newContactName").value;
+    const number = document.getElementById("phone_number").value;
+
+    let ourRequest = new FXMLHttpRequest();
+
+    ourRequest.onreadystatechange = function () {
+        if (ourRequest.readyState === 4 && ourRequest.status === 200) {
+           // document.getElementById("demo3").innerHTML = this.responseText;
+           modal.style.display = 'none';
+           showAllContact();
+        }
+    }
+    ourRequest.open('PUT', localStorage);
+    ourRequest.send(`name=${name}&number=${number}`);
+});

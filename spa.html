@@ -101,6 +101,23 @@
             <h2>Contacts Page</h2>
 
             <div id="contact-list">
+                <img src="./IMG/add-user.png" alt="add user image" id="addContactButton">
+                <!-- Modal -->
+                <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Add a New Contact</h2>
+                    <!-- Form to add a contact -->
+                    <div id="contactForm">
+                        <label for="newContactName">Name:</label>
+                        <input type="text" id="newContactName" name="newContactName" required>
+                        <label for="phone">Phone:</label>
+                        <input type="text" id="phone_number" name="phone_number" required>
+                        <button type="submit" id="add_contact">Add</button>
+                    </div>
+                </div>
+                </div>
+
                 <table>
                     <thead>
                         <tr>

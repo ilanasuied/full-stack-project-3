@@ -79,6 +79,8 @@ function put(database, data){
             number = parts[1];
         }
     }
+    console.log(name);
+    console.log(number);
     addContact(database, name, number);
     return `${name} was successfully added`
 }

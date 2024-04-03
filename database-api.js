@@ -16,10 +16,7 @@ function addUser(database, username, password, name, email){
         password: password,
         name: name,
         email: email,
-        contact: {
-            sivane: 123,
-            lea: 123
-        }
+        contact: {}
     }
     //store the date on the local storage
     database.setItem(username, JSON.stringify(user));
