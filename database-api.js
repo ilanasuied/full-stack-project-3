@@ -65,10 +65,47 @@ function addContact(database, name, number){
     database.setItem(currentUserName, JSON.stringify(user));
 }
 
-//remove a contect from the contact list
-function  removeContect(database, name){
+//remove a contact from the contact list
+function removeContect(database, name){
     let currentUserName = database.getItem('currentUser');
     let user = JSON.parse(database.getItem(currentUserName));
+    console.log(name, typeof(name));
     delete user.contact[name];
     database.setItem(currentUserName, JSON.stringify(user));
+}
+
+//update a contact in the contact list
+function updateContact(database, oldName, newName, newNumber) {
+    let currentUserName = database.getItem('currentUser');
+    let user = JSON.parse(database.getItem(currentUserName));
+
+    // Check if the contact with the oldName exists
+    if (user && user.contact && user.contact[oldName]) {
+        // Update the contact's name and number
+        user.contact[newName] = user.contact[oldName];
+        delete user.contact[oldName]; // Remove the old contact entry
+        user.contact[newName] = newNumber; // Update the number
+
+        // Update the database with the modified user data
+        database.setItem(currentUserName, JSON.stringify(user));
+
+    } else {
+        return `${oldName} not found in the contact list`;
+    }
+}
+
+
+//search a contact in the contact list /////
+function searchContact(database, name){
+    let currentUserName = database.getItem('currentUser');
+    let user = JSON.parse(database.getItem(currentUserName));
+
+    // Search for the contact by name in the contact list
+    if (user.contact[name]) {
+        return user.contact[name]; // Return the contact if found
+    } else {
+        console.log('Contact not found');
+        return null; // or handle the case where the contact is not found
+    }
+    
 }

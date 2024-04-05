@@ -145,13 +145,27 @@ function showAllContact(){
         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
             let htmlContent = '';
             for (let key in this.responseText) {
+                // element to delete
+                let bin = document.createElement("img");
+                bin.src = "./IMG/dustbin.png";
+                bin.className = "removebtn";
+                bin.dataset.id = key;
+
+                // element to update
+                let upd = document.createElement("img");
+                upd.src = "./IMG/update.png";
+                upd.className = "update";
+                upd.dataset.id = key;
+                upd.dataset.number = this.responseText[key];
+
                 htmlContent += `<tr>
                                     <td>${key}</td>
                                     <td>${this.responseText[key]}</td>
+                                    <td>${bin.outerHTML}</td>
+                                    <td>${upd.outerHTML}</td>
                                 </tr>`;
             }
             document.getElementById("tbody_contact").innerHTML = htmlContent;
-
         }
     }
     ourRequest.open('GET', localStorage);
@@ -206,4 +220,155 @@ addbtn.addEventListener('click', function () {
     }
     ourRequest.open('PUT', localStorage);
     ourRequest.send(`name=${name}&number=${number}`);
+
+
 });
+
+
+
+
+
+
+let del = document.getElementById('del');
+let deleteForm = document.getElementById('deleteForm');
+let closeBtn = document.getElementsByClassName('close')[1];
+
+// Close the del when the user clicks outside of it
+window.addEventListener('click', function(event) {
+  if (event.target == del) {
+    del.style.display = 'none';
+  }
+});
+
+// Close the del when the user clicks the close button
+closeBtn.addEventListener('click', function() {
+    del.style.display = 'none';
+  });
+
+// Prevent the del from closing if the user clicks inside the form
+deleteForm.addEventListener('click', function(event) {
+  event.stopPropagation();
+});
+
+
+// Change/Update Details of Contact
+const updateRec = document.getElementById('updateContact');
+let updateForm = document.getElementById('deleteForm');
+let closeBt = document.getElementsByClassName('close')[2];
+
+// Close the del when the user clicks outside of it
+window.addEventListener('click', function(event) {
+  if (event.target == del) {
+    updateRec.style.display = 'none';
+  }
+});
+
+// Close the del when the user clicks the close button
+closeBt.addEventListener('click', function() {
+    del.style.display = 'none';
+  });
+
+// Prevent the del from closing if the user clicks inside the form
+updateForm.addEventListener('click', function(event) {
+  event.stopPropagation();
+});
+
+document.addEventListener('click', function(event) {
+    // Delete Contact From the list
+    if (event.target && event.target.className === 'removebtn') {
+        // Extract the name of the current record
+        let record = event.target.dataset.id; // Assuming you set the name as a data attribute on the bin logo
+
+        console.log("Bin ID:", record);
+
+        // Show the delete confirmation modal
+        document.getElementById("del").style.display = 'block';
+
+        // Handle the click on "Yes" button in the delete confirmation modal
+        document.getElementById("del_yes").addEventListener('click', function() {
+            let ourRequest = new XMLHttpRequest();
+
+            ourRequest.onreadystatechange = function () {
+                if (ourRequest.readyState === 4 && ourRequest.status === 200) {
+                    deleteForm.innerHTML = this.responseText;
+                    del.style.display = 'none';
+                    showAllContact();
+                }
+            }
+
+            ourRequest.open('DELETE', localStorage);
+            ourRequest.send(record);
+        });
+
+        // Handle the click on "No" button in the delete confirmation modal
+        document.getElementById("del_no").addEventListener('click', function() {
+            document.getElementById("del").style.display = 'none';
+        });
+    }
+
+
+    // Change/Update Details of Contact
+    if (event.target && event.target.className === 'update') {
+        //save the username and the password
+        const oldName = event.target.dataset.id; 
+        document.getElementById("updateName").value = oldName;
+        document.getElementById("updatePhone").value = event.target.dataset.number;
+        updateRec.style.display = 'block';
+        
+
+        // Handle the click on "Save Changes" button 
+        document.getElementById("up_contact").addEventListener('click', function() {
+            const newName = document.getElementById("updateName").innerText;
+            const newNumber = document.getElementById("updatePhone").innerText;
+            
+            let ourRequest = new XMLHttpRequest();
+
+            ourRequest.onreadystatechange = function () {
+                if (ourRequest.readyState === 4 && ourRequest.status === 200) {
+                    updateForm.innerHTML = this.responseText;
+                    showAllContact();
+                }
+            }
+
+            ourRequest.open('PUT', localStorage);
+            ourRequest.send(`oldName=${oldName}&name=${newName}&number=${newNumber}`);
+
+            updateRec.style.display = 'none';
+                    
+        });
+    }
+});
+
+
+
+
+
+// // Search a Contact 
+// let searchBar = document.getElementById('searchbar');
+// searchBar.addEventListener('click', function () {
+//     //save the username and the password
+//     const name = searchBar.value.trim();  // Trim to remove any leading or trailing whitespace
+
+//     // Check if the contact name is not empty
+//     if (name !== '') {
+//         // Send a POST request to search for the contact
+//         let ourRequest = new XMLHttpRequest();
+
+//         ourRequest.onreadystatechange = function () {
+//             if (ourRequest.readyState === 4 && ourRequest.status === 200) {
+//                 console.log(xhr.responseText);
+//             }
+//         }
+
+//         // Adjust the endpoint URL and request type according to your server configuration
+//         ourRequest.open('POST', localStorage);
+//         ourRequest.send(name); // Send the contact name in the request body
+//     } 
+// });
+
+
+
+
+
+
+

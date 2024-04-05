@@ -27,6 +27,9 @@ function post(database, data){
     if(searchUser(database, username)){
         return false;
     }
+    // if(searchContact(database, name)){
+        
+    // }
     addUser(database, username, password, name, email);
     return true;
 } 
@@ -64,29 +67,60 @@ function get(database){
 function put(database, data){
     let name;
     let number;
+    let newName;
     let keyValuePairs = data.split('&');
-    for (let pair of keyValuePairs) {
-        // Split each pair by '=' to separate the key and value
-        let parts = pair.split('=');
-        // Check if the key is 'username'
-        if (parts[0] === 'name') {
-            // Extract the username (value)
-            name = parts[1];
+    if(keyValuePairs.length == 2) {
+        for (let pair of keyValuePairs) {
+            // Split each pair by '=' to separate the key and value
+            let parts = pair.split('=');
+            // Check if the key is 'username'
+            if (parts[0] === 'name') {
+                // Extract the username (value)
+                name = parts[1];
+            }
+            // Check if the key is 'password'
+            if (parts[0] === 'number') {
+                // Extract the password (value)
+                number = parts[1];
+            }
         }
-        // Check if the key is 'password'
-        if (parts[0] === 'number') {
-            // Extract the password (value)
-            number = parts[1];
-        }
+        console.log(name);
+        console.log(number);
+        addContact(database, name, number);
+        return `${name} was successfully added`
     }
-    console.log(name);
-    console.log(number);
-    addContact(database, name, number);
-    return `${name} was successfully added`
+    if(keyValuePairs.length == 3) {
+        for (let pair of keyValuePairs) {
+            // Split each pair by '=' to separate the key and value
+            let parts = pair.split('=');
+            // Check if the key is 'username'
+            if (parts[0] === 'oldName') {
+                // Extract the old username (value)
+                name = parts[1];
+            }
+            // Check if the second is the new name
+            if (parts[0] === 'name') {
+                // Extract the new name (value)
+                newName = parts[1];
+            }
+            // Check if the third is the number
+            if (parts[0] === 'number') {
+                // Extract the number (value)
+                number = parts[1];
+            }
+        }
+        console.log(name);
+        console.log(newName);
+        console.log(number);
+        updateContact(database, name, newName, number);
+        return `${name} updated to ${newName} with number ${number}`;
+    }
+    
 }
 
 //remove someone from the contact list of the current user
 function dlt(database, data){
+    console.log(data, typeof(data));
     removeContect(database, data);
-    return `${data} was successfully remove`
+    return `${data} was successfully removed`;
 }
