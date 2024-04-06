@@ -319,8 +319,8 @@ document.addEventListener('click', function (event) {
 
         // Handle the click on "Save Changes" button 
         document.getElementById("up_contact").addEventListener('click', function () {
-            const newName = document.getElementById("updateName").innerText;
-            const newNumber = document.getElementById("updatePhone").innerText;
+            const newName = document.getElementById("updateName").value;
+            const newNumber = document.getElementById("updatePhone").value;
 
             let ourRequest = new FXMLHttpRequest();
 
@@ -328,8 +328,6 @@ document.addEventListener('click', function (event) {
                 if (ourRequest.readyState === 4 && ourRequest.status === 200) {
                     updateForm.innerHTML = this.responseText;
                     showAllContact();
-                    // Reload the page
-                    location.reload();
                 }
             }
 
