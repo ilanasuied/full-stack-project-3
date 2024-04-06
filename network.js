@@ -16,7 +16,7 @@ class FXMLHttpRequest {
     send(data) {
         var xhr = this;
         switch (xhr.method) {
-            case 'GET': xhr.responseText = get(xhr.url);
+            case 'GET': xhr.responseText = get(xhr.url, data);
                 break;
             case 'POST': xhr.responseText = post(xhr.url, data);
                 break;

@@ -342,6 +342,10 @@ tbody {
     width: 20px;  
 }
 
+.showAllButton {
+    
+}
+
 .button-search-container {
     display: flex;
     align-items: center; /* Vertically center the items */

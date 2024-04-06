@@ -59,9 +59,16 @@ function log_in(database, keyValuePairs){
 
 
 //get from the database all the contacts of the current user
-function get(database){
-    return selectAll(database);
+function get(database, data){
+    if(data == null){
+        return selectAll(database);
+    }
+    else{
+        let contact = searchContact(database, data);
+        return contact;
+    }
 }
+
 
 //add a new contact to the current user
 function put(database, data){

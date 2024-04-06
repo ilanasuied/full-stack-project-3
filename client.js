@@ -139,6 +139,9 @@ loginbtn.addEventListener('click', function () {
 //Show all the contact list
 let contact_page = document.getElementById('contact-page');
 contact_page.addEventListener('click', showAllContact);
+let showAllButton = document.getElementById('showAllButton');
+showAllButton.addEventListener('click', showAllContact) ;
+
 function showAllContact() {
     let ourRequest = new FXMLHttpRequest();
     ourRequest.onreadystatechange = function () {
@@ -171,6 +174,7 @@ function showAllContact() {
     ourRequest.open('GET', localStorage);
     ourRequest.send();
 }
+
 
 
 // Select the necessary elements
@@ -344,28 +348,46 @@ document.addEventListener('click', function (event) {
 
 
 
-// // Search a Contact
-// let searchBar = document.getElementById('searchbar');
-// searchBar.addEventListener('click', function () {
-//     //save the username and the password
-//     const name = searchBar.value.trim();  // Trim to remove any leading or trailing whitespace
+// Search a Contact 
+let searchBar = document.getElementById('searchbar');
+let searchbtn = document.getElementById('searchbtn');
 
-//     // Check if the contact name is not empty
-//     if (name !== '') {
-//         // Send a POST request to search for the contact
-//         let ourRequest = new XMLHttpRequest();
+searchbtn.addEventListener('click', function() {
+    //save the username and the password
+    const name = searchBar.value.trim();  // Trim to remove any leading or trailing whitespace
+   
+    if (name !== '') {  // Check if the contact name is not empty
+        // Send a POST request to search for the contact
+        let ourRequest = new FXMLHttpRequest();
 
-//         ourRequest.onreadystatechange = function () {
-//             if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-//                 console.log(xhr.responseText);
-//             }
-//         }
+        ourRequest.onreadystatechange = function () {
+            if (ourRequest.readyState === 4 && ourRequest.status === 200) {
+                let contact = this.responseText; // Parse the JSON response
+                
+                // Create HTML content for the contact
+                let htmlContent = `<tr>
+                                        <td>${contact.name}</td>
+                                        <td>${contact.number}</td>
+                                        <td><img src="./IMG/dustbin.png" class="removebtn" data-id="${contact.name}"></td>
+                                        <td><img src="./IMG/update.png" class="update" data-id="${contact.name}" data-number="${contact.number}"></td>
+                                    </tr>`;
+                
+                document.getElementById("tbody_contact").innerHTML = htmlContent;
+            }
+        }
 
-//         // Adjust the endpoint URL and request type according to your server configuration
-//         ourRequest.open('POST', localStorage);
-//         ourRequest.send(name); // Send the contact name in the request body
-//     }
-// });
+        // Adjust the endpoint URL and request type according to your server configuration
+        ourRequest.open('GET', localStorage);
+        ourRequest.send(name); // Send the contact name in the request body
+    } 
+        
+    
+});
+
+
+
+
+
 
 
 

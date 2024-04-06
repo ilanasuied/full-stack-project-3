@@ -95,14 +95,18 @@ function updateContact(database, oldName, newName, newNumber) {
 }
 
 
-//search a contact in the contact list /////
+//search a contact in the contact list 
 function searchContact(database, name){
     let currentUserName = database.getItem('currentUser');
     let user = JSON.parse(database.getItem(currentUserName));
-
     // Search for the contact by name in the contact list
     if (user.contact[name]) {
-        return user.contact[name]; // Return the contact if found
+        // Create an object containing the name and number of the contact
+        let contact = {
+            name: name,
+            number: user.contact[name]
+        };
+        return contact;
     } else {
         console.log('Contact not found');
         return null; // or handle the case where the contact is not found
