@@ -79,7 +79,7 @@
 //new user registration
 var errorConnection = false;
 let registerbtn = document.getElementById('regist');
-registerbtn.addEventListener('click', function(){
+registerbtn.addEventListener('click', function () {
     errorConnection = false;
     document.getElementById('msg').style.display = 'block';
     let username = document.getElementById('username').value;
@@ -90,16 +90,16 @@ registerbtn.addEventListener('click', function(){
     let ourRequest = new FXMLHttpRequest();
     ourRequest.onreadystatechange = function () {
         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-            if(!this.responseText){
+            if (!this.responseText) {
                 document.getElementById("msg").classList.add('msg');
                 document.getElementById("msg").innerHTML = 'This username is already taken';
                 errorConnection = true;
-                let interval = setInterval(function(){
+                let interval = setInterval(function () {
                     document.getElementById('msg').style.display = 'none';
                     clearInterval(interval);
-                },2000);
+                }, 2000);
             }
-            
+
         }
     }
 
@@ -110,7 +110,7 @@ registerbtn.addEventListener('click', function(){
 
 //an existing user connects to the site
 let loginbtn = document.getElementById('btnsignin');
-loginbtn.addEventListener('click', function(){
+loginbtn.addEventListener('click', function () {
     errorConnection = false;
     document.getElementById('errorMsg').style.display = 'block';
     let username = document.getElementById('username-login').value;
@@ -118,15 +118,15 @@ loginbtn.addEventListener('click', function(){
     let ourRequest = new FXMLHttpRequest();
     ourRequest.onreadystatechange = function () {
         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-            if(!this.responseText){
+            if (!this.responseText) {
                 errorConnection = true;
                 document.getElementById("errorMsg").classList.add('msg');
                 document.getElementById("errorMsg").innerHTML = 'Wrong username or password';
-                let interval = setInterval(function(){
+                let interval = setInterval(function () {
                     document.getElementById('errorMsg').style.display = 'none';
                     clearInterval(interval);
-                },2000);
-                
+                }, 2000);
+
             }
         }
     }
@@ -139,7 +139,7 @@ loginbtn.addEventListener('click', function(){
 //Show all the contact list
 let contact_page = document.getElementById('contact-page');
 contact_page.addEventListener('click', showAllContact);
-function showAllContact(){
+function showAllContact() {
     let ourRequest = new FXMLHttpRequest();
     ourRequest.onreadystatechange = function () {
         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
@@ -180,25 +180,25 @@ let closeButton = document.getElementsByClassName('close')[0];
 let contactForm = document.getElementById('contactForm');
 
 // Open the modal when the button is clicked
-addContactButton.addEventListener('click', function() {
-  modal.style.display = 'block';
+addContactButton.addEventListener('click', function () {
+    modal.style.display = 'block';
 });
 
 // Close the modal when the user clicks the close button
-closeButton.addEventListener('click', function() {
-  modal.style.display = 'none';
+closeButton.addEventListener('click', function () {
+    modal.style.display = 'none';
 });
 
 // Close the modal when the user clicks outside of the modal
-window.addEventListener('click', function(event) {
-  if (event.target == modal) {
-    modal.style.display = 'none';
-  }
+window.addEventListener('click', function (event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
 });
 
 // Prevent the modal from closing if the user clicks inside the form
-contactForm.addEventListener('click', function(event) {
-  event.stopPropagation();
+contactForm.addEventListener('click', function (event) {
+    event.stopPropagation();
 });
 
 
@@ -213,9 +213,8 @@ addbtn.addEventListener('click', function () {
 
     ourRequest.onreadystatechange = function () {
         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-           // document.getElementById("demo3").innerHTML = this.responseText;
-           modal.style.display = 'none';
-           showAllContact();
+            modal.style.display = 'none';
+            showAllContact();
         }
     }
     ourRequest.open('PUT', localStorage);
@@ -234,20 +233,20 @@ let deleteForm = document.getElementById('deleteForm');
 let closeBtn = document.getElementsByClassName('close')[1];
 
 // Close the del when the user clicks outside of it
-window.addEventListener('click', function(event) {
-  if (event.target == del) {
-    del.style.display = 'none';
-  }
+window.addEventListener('click', function (event) {
+    if (event.target == del) {
+        del.style.display = 'none';
+    }
 });
 
 // Close the del when the user clicks the close button
-closeBtn.addEventListener('click', function() {
+closeBtn.addEventListener('click', function () {
     del.style.display = 'none';
-  });
+});
 
 // Prevent the del from closing if the user clicks inside the form
-deleteForm.addEventListener('click', function(event) {
-  event.stopPropagation();
+deleteForm.addEventListener('click', function (event) {
+    event.stopPropagation();
 });
 
 
@@ -257,23 +256,23 @@ let updateForm = document.getElementById('deleteForm');
 let closeBt = document.getElementsByClassName('close')[2];
 
 // Close the del when the user clicks outside of it
-window.addEventListener('click', function(event) {
-  if (event.target == del) {
-    updateRec.style.display = 'none';
-  }
+window.addEventListener('click', function (event) {
+    if (event.target == del) {
+        updateRec.style.display = 'none';
+    }
 });
 
 // Close the del when the user clicks the close button
-closeBt.addEventListener('click', function() {
+closeBt.addEventListener('click', function () {
     del.style.display = 'none';
-  });
-
-// Prevent the del from closing if the user clicks inside the form
-updateForm.addEventListener('click', function(event) {
-  event.stopPropagation();
 });
 
-document.addEventListener('click', function(event) {
+// Prevent the del from closing if the user clicks inside the form
+updateForm.addEventListener('click', function (event) {
+    event.stopPropagation();
+});
+
+document.addEventListener('click', function (event) {
     // Delete Contact From the list
     if (event.target && event.target.className === 'removebtn') {
         // Extract the name of the current record
@@ -285,14 +284,16 @@ document.addEventListener('click', function(event) {
         document.getElementById("del").style.display = 'block';
 
         // Handle the click on "Yes" button in the delete confirmation modal
-        document.getElementById("del_yes").addEventListener('click', function() {
-            let ourRequest = new XMLHttpRequest();
+        document.getElementById("del_yes").addEventListener('click', function () {
+            let ourRequest = new FXMLHttpRequest();
 
             ourRequest.onreadystatechange = function () {
                 if (ourRequest.readyState === 4 && ourRequest.status === 200) {
                     deleteForm.innerHTML = this.responseText;
                     del.style.display = 'none';
                     showAllContact();
+                    // Reload the page
+                    location.reload();
                 }
             }
 
@@ -301,7 +302,7 @@ document.addEventListener('click', function(event) {
         });
 
         // Handle the click on "No" button in the delete confirmation modal
-        document.getElementById("del_no").addEventListener('click', function() {
+        document.getElementById("del_no").addEventListener('click', function () {
             document.getElementById("del").style.display = 'none';
         });
     }
@@ -310,23 +311,25 @@ document.addEventListener('click', function(event) {
     // Change/Update Details of Contact
     if (event.target && event.target.className === 'update') {
         //save the username and the password
-        const oldName = event.target.dataset.id; 
+        const oldName = event.target.dataset.id;
         document.getElementById("updateName").value = oldName;
         document.getElementById("updatePhone").value = event.target.dataset.number;
         updateRec.style.display = 'block';
-        
+
 
         // Handle the click on "Save Changes" button 
-        document.getElementById("up_contact").addEventListener('click', function() {
+        document.getElementById("up_contact").addEventListener('click', function () {
             const newName = document.getElementById("updateName").innerText;
             const newNumber = document.getElementById("updatePhone").innerText;
-            
-            let ourRequest = new XMLHttpRequest();
+
+            let ourRequest = new FXMLHttpRequest();
 
             ourRequest.onreadystatechange = function () {
                 if (ourRequest.readyState === 4 && ourRequest.status === 200) {
                     updateForm.innerHTML = this.responseText;
                     showAllContact();
+                    // Reload the page
+                    location.reload();
                 }
             }
 
@@ -334,7 +337,7 @@ document.addEventListener('click', function(event) {
             ourRequest.send(`oldName=${oldName}&name=${newName}&number=${newNumber}`);
 
             updateRec.style.display = 'none';
-                    
+
         });
     }
 });
@@ -343,7 +346,7 @@ document.addEventListener('click', function(event) {
 
 
 
-// // Search a Contact 
+// // Search a Contact
 // let searchBar = document.getElementById('searchbar');
 // searchBar.addEventListener('click', function () {
 //     //save the username and the password
@@ -363,7 +366,7 @@ document.addEventListener('click', function(event) {
 //         // Adjust the endpoint URL and request type according to your server configuration
 //         ourRequest.open('POST', localStorage);
 //         ourRequest.send(name); // Send the contact name in the request body
-//     } 
+//     }
 // });
 
 
