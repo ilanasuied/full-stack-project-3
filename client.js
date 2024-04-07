@@ -227,9 +227,10 @@ addbtn.addEventListener('click', function () {
             document.getElementById('contactForm').style.display = 'none';
             showAllContact();
         }
+    }
         ourRequest.open('PUT', localStorage);
         ourRequest.send(`name=${name}&number=${number}`);
-        }
+        
     }
     else {
         // Display error message with OK button
