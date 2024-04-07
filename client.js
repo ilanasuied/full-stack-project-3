@@ -108,8 +108,12 @@ registerbtn.addEventListener('click', function () {
 });
 
 
-//an existing user connects to the site
+// An existing user connects to the site
 let loginbtn = document.getElementById('btnsignin');
+const contactPageLink = document.getElementById('contact-page');
+// Initially disable the contact page link
+contactPageLink.classList.add('disabled');
+
 loginbtn.addEventListener('click', function () {
     errorConnection = false;
     document.getElementById('errorMsg').style.display = 'block';
@@ -129,6 +133,9 @@ loginbtn.addEventListener('click', function () {
                 
 
             }
+        }
+        else {
+            contactPageLink.classList.remove('disabled');
         }
     }
 
@@ -222,15 +229,15 @@ addbtn.addEventListener('click', function () {
         let ourRequest = new FXMLHttpRequest();
 
         ourRequest.onreadystatechange = function () {
-        if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-            modal.style.display = 'none';
-            document.getElementById('contactForm').style.display = 'none';
-            showAllContact();
+            if (ourRequest.readyState === 4 && ourRequest.status === 200) {
+                modal.style.display = 'none';
+                document.getElementById('contactForm').style.display = 'none';
+                showAllContact();
+            }
         }
-    }
         ourRequest.open('PUT', localStorage);
         ourRequest.send(`name=${name}&number=${number}`);
-        
+            
     }
     else {
         // Display error message with OK button
@@ -243,14 +250,22 @@ addbtn.addEventListener('click', function () {
         okButton.addEventListener('click', function() {
             // Hide the error message and reset the form
             errorMessage.style.display = 'none';
+
             document.getElementById("newContactName").value = '';
             document.getElementById("phone_number").value = '';
+            document.getElementById('contactForm').style.display = 'block'; // Ensure the form is visible
+
         });
 
         errorMessage.appendChild(okButton);
         document.getElementById('contactForm').appendChild(errorMessage);
         errorMessage.style.display = 'block';
     }
+
+    // Reset the form after adding a contact
+    document.getElementById("newContactName").value = '';
+    document.getElementById("phone_number").value = '';
+    document.getElementById('contactForm').style.display = 'block';
     
 });
 
@@ -271,6 +286,7 @@ function getErrorMessage(name, number) {
         return 'Number must start with "05"';
     }
 }
+
 
 
 
@@ -338,8 +354,6 @@ document.addEventListener('click', function (event) {
                     //deleteForm.innerHTML = this.responseText;
                     del.style.display = 'none';
                     showAllContact();
-                    // Reload the page
-                    //location.reload();
                 }
             }
 
@@ -370,20 +384,41 @@ document.addEventListener('click', function (event) {
             const newName = document.getElementById("updateName").value;
             const newNumber = document.getElementById("updatePhone").value;
 
-            let ourRequest = new FXMLHttpRequest();
+            // Verification of inputs
+            let correct = numberAndNameVerification(newName, newNumber)  ; 
 
-            ourRequest.onreadystatechange = function () {
-                if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-                    //updateForm.innerHTML = this.responseText;
-                    showAllContact();
+            if(correct) {
+                let ourRequest = new FXMLHttpRequest();
+
+                ourRequest.onreadystatechange = function () {
+                    if (ourRequest.readyState === 4 && ourRequest.status === 200) {
+                        showAllContact();
+                        updateForm.style.display = 'none';
+                        updateRec.style.display = 'none';
+                    }
                 }
+                ourRequest.open('PUT', localStorage);
+                ourRequest.send(`oldName=${oldName}&name=${newName}&number=${newNumber}`);
             }
+            else {
+                // Display error message with OK button
+                let errorMessage = document.createElement('div');
+                errorMessage.classList.add('msg');
+                errorMessage.innerHTML = 'Error: ' + getErrorMessage(newName, newNumber);
 
-            ourRequest.open('PUT', localStorage);
-            ourRequest.send(`oldName=${oldName}&name=${newName}&number=${newNumber}`);
+                let okButton = document.createElement('button');
+                okButton.textContent = 'OK';
+                okButton.addEventListener('click', function() {
+                    // Hide the error message and reset the form
+                    errorMessage.style.display = 'none';
+                    document.getElementById('updateForm').style.display = 'block'; // Ensure the form is visible
 
-            updateRec.style.display = 'none';
+                });
 
+                errorMessage.appendChild(okButton);
+                document.getElementById('updateForm').appendChild(errorMessage);
+                errorMessage.style.display = 'block';
+            }
         });
     }
 });
@@ -396,7 +431,8 @@ document.addEventListener('click', function (event) {
 let searchBar = document.getElementById('searchbar');
 let searchbtn = document.getElementById('searchbtn');
 
-searchbtn.addEventListener('click', function() {
+searchbtn.addEventListener('click', function(event) {
+    event.preventDefault();
     //save the username and the password
     const name = searchBar.value.trim();  // Trim to remove any leading or trailing whitespace
    
@@ -406,7 +442,7 @@ searchbtn.addEventListener('click', function() {
 
         ourRequest.onreadystatechange = function () {
             if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-                let contact = this.responseText; // Parse the JSON response
+                let contact = this.responseText; 
                 
                 // Create HTML content for the contact
                 let htmlContent = `<tr>
@@ -417,6 +453,7 @@ searchbtn.addEventListener('click', function() {
                                     </tr>`;
                 
                 document.getElementById("tbody_contact").innerHTML = htmlContent;
+
             }
         }
 
