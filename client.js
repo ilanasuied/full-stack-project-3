@@ -126,6 +126,7 @@ loginbtn.addEventListener('click', function () {
                     document.getElementById('errorMsg').style.display = 'none';
                     clearInterval(interval);
                 }, 2000);
+                
 
             }
         }
@@ -209,26 +210,66 @@ contactForm.addEventListener('click', function (event) {
 //add a new contact
 let addbtn = document.getElementById('add_contact');
 addbtn.addEventListener('click', function () {
-    //save the username and the password
+
+    //save the username and the number
     const name = document.getElementById("newContactName").value;
     const number = document.getElementById("phone_number").value;
 
-    let ourRequest = new FXMLHttpRequest();
+    //verification of number
+    let correct = numberAndNameVerification(name, number);
 
-    ourRequest.onreadystatechange = function () {
+    if(correct) {
+        let ourRequest = new FXMLHttpRequest();
+
+        ourRequest.onreadystatechange = function () {
         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
             modal.style.display = 'none';
+            document.getElementById('contactForm').style.display = 'none';
             showAllContact();
         }
+        ourRequest.open('PUT', localStorage);
+        ourRequest.send(`name=${name}&number=${number}`);
+        }
     }
-    ourRequest.open('PUT', localStorage);
-    ourRequest.send(`name=${name}&number=${number}`);
+    else {
+        // Display error message with OK button
+        let errorMessage = document.createElement('div');
+        errorMessage.classList.add('msg');
+        errorMessage.innerHTML = 'Error: ' + getErrorMessage(name, number);
 
+        let okButton = document.createElement('button');
+        okButton.textContent = 'OK';
+        okButton.addEventListener('click', function() {
+            // Hide the error message and reset the form
+            errorMessage.style.display = 'none';
+            document.getElementById("newContactName").value = '';
+            document.getElementById("phone_number").value = '';
+        });
 
+        errorMessage.appendChild(okButton);
+        document.getElementById('contactForm').appendChild(errorMessage);
+        errorMessage.style.display = 'block';
+    }
+    
 });
 
 
+function numberAndNameVerification(name, number) {
+    // Check if name is not empty, number length is 10, and number starts with '05'
+    return name.trim() !== '' && number.length === 10 && number.startsWith('05');
+}
 
+function getErrorMessage(name, number) {
+    if(name.trim() === '') {
+        return 'Contact name cannot be empty';
+    }
+    if(number.length !== 10) {
+        return 'Number must contain 10 digits exactly';
+    }
+    if(!number.startsWith('05')) {
+        return 'Number must start with "05"';
+    }
+}
 
 
 
@@ -293,11 +334,11 @@ document.addEventListener('click', function (event) {
 
             ourRequest.onreadystatechange = function () {
                 if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-                    deleteForm.innerHTML = this.responseText;
+                    //deleteForm.innerHTML = this.responseText;
                     del.style.display = 'none';
                     showAllContact();
                     // Reload the page
-                    location.reload();
+                    //location.reload();
                 }
             }
 
@@ -310,6 +351,8 @@ document.addEventListener('click', function (event) {
             document.getElementById("del").style.display = 'none';
         });
     }
+
+
 
 
     // Change/Update Details of Contact
@@ -330,7 +373,7 @@ document.addEventListener('click', function (event) {
 
             ourRequest.onreadystatechange = function () {
                 if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-                    updateForm.innerHTML = this.responseText;
+                    //updateForm.innerHTML = this.responseText;
                     showAllContact();
                 }
             }

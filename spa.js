@@ -25,6 +25,10 @@ const app = {
     },
     pageShown: function (ev) {
         ev.preventDefault();
+        const contactPageLink = document.getElementById('contact-page');
+        // Initially disable the contact page link
+        contactPageLink.classList.add('disabled');
+
         console.log('Page', ev.target.id, 'just shown');
         let submitBtn = ev.target.querySelector('.submit');
         console.log('Submit button:', submitBtn);
@@ -33,6 +37,9 @@ const app = {
         }
         else if (submitBtn && submitBtn.value == "Sign In") {
             submitBtn.addEventListener('click', app.log)
+        }
+        else {
+            contactPageLink.classList.remove('disabled');
         }
 
     },
