@@ -442,16 +442,15 @@ searchbtn.addEventListener('click', function(event) {
 
         ourRequest.onreadystatechange = function () {
             if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-                let contact = this.responseText; 
-                
-                // Create HTML content for the contact
-                let htmlContent = `<tr>
-                                        <td>${contact.name}</td>
-                                        <td>${contact.number}</td>
-                                        <td><img src="./IMG/dustbin.png" class="removebtn" data-id="${contact.name}"></td>
-                                        <td><img src="./IMG/update.png" class="update" data-id="${contact.name}" data-number="${contact.number}"></td>
+                let htmlContent = '';
+                for (let key in this.responseText) {
+                    htmlContent += `<tr>
+                                        <td>${key}</td>
+                                        <td>${this.responseText[key]}</td>
+                                        <td><img src="./IMG/dustbin.png" class="removebtn" data-id="${key}"></td>
+                                        <td><img src="./IMG/update.png" class="update" data-id="${key}" data-number="${this.responseText[key]}"></td>
                                     </tr>`;
-                
+                }
                 document.getElementById("tbody_contact").innerHTML = htmlContent;
 
             }
