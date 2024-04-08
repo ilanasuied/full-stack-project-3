@@ -1,81 +1,3 @@
-
-// var btn = document.getElementById('submitBtn');
-// btn.addEventListener('click', function () {
-//     //save the username and the password
-//     const username = document.getElementById("name").value;
-//     const password = document.getElementById("password").value;
-
-//     let ourRequest = new FXMLHttpRequest();
-
-//     ourRequest.onreadystatechange = function () {
-//         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-//             document.getElementById("demo").innerHTML = this.responseText;
-
-//         }
-//     }
-//     ourRequest.open('POST', localStorage);
-//     ourRequest.send(`username=${username}&password=${password}`);
-// });
-
-
-// let viewall = document.getElementById('viewall');
-// viewall.addEventListener('click', function () {
-//     let ourRequest = new FXMLHttpRequest();
-//     ourRequest.onreadystatechange = function () {
-//         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-//             let htmlContent = '';
-//             for (let key in this.responseText) {
-//                 htmlContent += `<p>${key}: ${this.responseText[key]}</p>`;
-//             }
-//             document.getElementById("demo2").innerHTML = htmlContent;
-
-//         }
-//     }
-//     ourRequest.open('GET', localStorage);
-//     ourRequest.send();
-// });
-
-
-// let addbtn = document.getElementById('addContact');
-// addbtn.addEventListener('click', function () {
-//     //save the username and the password
-//     const name = document.getElementById("newContact").value;
-//     const number = document.getElementById("number").value;
-
-//     let ourRequest = new FXMLHttpRequest();
-
-//     ourRequest.onreadystatechange = function () {
-//         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-//             document.getElementById("demo3").innerHTML = this.responseText;
-
-//         }
-//     }
-//     ourRequest.open('PUT', localStorage);
-//     ourRequest.send(`name=${name}&number=${number}`);
-// });
-
-
-
-// let removebtn = document.getElementById('removebtn');
-// removebtn.addEventListener('click', function () {
-//     //save the username and the password
-//     const name = document.getElementById("remove").value;
-
-//     let ourRequest = new FXMLHttpRequest();
-
-//     ourRequest.onreadystatechange = function () {
-//         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-//             document.getElementById("demo4").innerHTML = this.responseText;
-
-//         }
-//     }
-
-//     ourRequest.open('DELETE', localStorage);
-//     ourRequest.send(name);
-// });
-
-
-
 //new user registration
 var errorConnection = false;
 let registerbtn = document.getElementById('regist');
@@ -90,16 +12,26 @@ registerbtn.addEventListener('click', function () {
     let ourRequest = new FXMLHttpRequest();
     ourRequest.onreadystatechange = function () {
         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-            if (!this.responseText) {
+            if (this.responseText !== 0) {
                 document.getElementById("msg").classList.add('msg');
-                document.getElementById("msg").innerHTML = 'This username is already taken';
+                if (this.responseText === 1){
+                    document.getElementById("msg").innerHTML = 'This username is already taken';
+                }
+                else if(this.responseText === 2){
+                    document.getElementById("msg").innerHTML = 'Please enter a correct email';
+                }
+                else if(this.responseText === 3){
+                    document.getElementById("msg").innerHTML = 'Username cannot be empty';
+                }
+                else if(this.responseText === 4){
+                    document.getElementById("msg").innerHTML = 'Password cannot be empty';
+                }
                 errorConnection = true;
                 let interval = setInterval(function () {
                     document.getElementById('msg').style.display = 'none';
                     clearInterval(interval);
                 }, 2000);
             }
-
         }
     }
 
@@ -130,8 +62,6 @@ loginbtn.addEventListener('click', function () {
                     document.getElementById('errorMsg').style.display = 'none';
                     clearInterval(interval);
                 }, 2000);
-                
-
             }
         }
         else {
@@ -155,7 +85,8 @@ function showAllContact() {
     ourRequest.onreadystatechange = function () {
         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
             let htmlContent = '';
-            for (let key in this.responseText) {
+            let contact_list = this.responseText;
+            for (let key in contact_list) {
                 // element to delete
                 let bin = document.createElement("img");
                 bin.src = "./IMG/dustbin.png";
@@ -314,7 +245,7 @@ deleteForm.addEventListener('click', function (event) {
 
 // Change/Update Details of Contact
 const updateRec = document.getElementById('updateContact');
-let updateForm = document.getElementById('deleteForm');
+let updateForm = document.getElementById('updateForm');
 let closeBt = document.getElementsByClassName('close')[2];
 
 // Close the del when the user clicks outside of it
@@ -326,7 +257,7 @@ window.addEventListener('click', function (event) {
 
 // Close the del when the user clicks the close button
 closeBt.addEventListener('click', function () {
-    del.style.display = 'none';
+    updateRec.style.display = 'none';
 });
 
 // Prevent the del from closing if the user clicks inside the form
@@ -367,9 +298,9 @@ document.addEventListener('click', function (event) {
         });
     }
 
+});
 
-
-
+document.addEventListener('click', function (event) {
     // Change/Update Details of Contact
     if (event.target && event.target.className === 'update') {
         //save the username and the password
@@ -377,7 +308,7 @@ document.addEventListener('click', function (event) {
         document.getElementById("updateName").value = oldName;
         document.getElementById("updatePhone").value = event.target.dataset.number;
         updateRec.style.display = 'block';
-
+        updateForm.style.display = 'block';
 
         // Handle the click on "Save Changes" button 
         document.getElementById("up_contact").addEventListener('click', function () {
@@ -392,9 +323,9 @@ document.addEventListener('click', function (event) {
 
                 ourRequest.onreadystatechange = function () {
                     if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-                        showAllContact();
                         updateForm.style.display = 'none';
                         updateRec.style.display = 'none';
+                        showAllContact();
                     }
                 }
                 ourRequest.open('PUT', localStorage);

@@ -1,5 +1,11 @@
 
 //add to the database a new user
+// this function return 
+//0 if everything its ok
+//1 if the username is already taken  
+//2 if the email is invalid 
+//3 if the username is empty
+//4 if the password is empty
 function post(database, data){
     let username;
     let password;
@@ -25,13 +31,19 @@ function post(database, data){
         }
     }
     if(searchUser(database, username)){
-        return false;
+        return 1;
     }
-    // if(searchContact(database, name)){
-        
-    // }
+    if(!checkMail(email)){
+        return 2;
+    }
+    if(username === ''){
+        return 3;
+    }
+    if(password === ''){
+        return 4;
+    }
     addUser(database, username, password, name, email);
-    return true;
+    return 0;
 } 
 
 
