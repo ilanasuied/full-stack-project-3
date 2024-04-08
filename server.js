@@ -131,3 +131,11 @@ function dlt(database, data){
     removeContect(database, data);
     return `${data} was successfully removed`;
 }
+
+function checkMail(mail){
+    if (!mail.match(/^.+\@\w+\.\w+$/)) 
+    {
+        return false;
+    }
+    return true;
+}

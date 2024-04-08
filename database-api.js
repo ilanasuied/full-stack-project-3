@@ -100,16 +100,11 @@ function searchContact(database, name){
     let currentUserName = database.getItem('currentUser');
     let user = JSON.parse(database.getItem(currentUserName));
     // Search for the contact by name in the contact list
-    if (user.contact[name]) {
-        // Create an object containing the name and number of the contact
-        let contact = {
-            name: name,
-            number: user.contact[name]
-        };
-        return contact;
-    } else {
-        console.log('Contact not found');
-        return null; // or handle the case where the contact is not found
-    }
-    
+    let result = {};
+    Object.keys(user.contact).forEach( key =>{
+        if (key.includes(name)) {
+            result[key] = user.contact[key];
+        }
+    });
+    return result;
 }
