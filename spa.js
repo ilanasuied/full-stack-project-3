@@ -2,6 +2,7 @@ const app = {
     pages: [],
     show: new Event('show'),
     init: function () {
+        const loginBtn = document.getElementById('btnsignin');
         app.pages = document.querySelectorAll('.page');   //for each page add event of show
         app.pages.forEach((pg) => {
             pg.addEventListener('show', app.pageShown);
@@ -12,6 +13,7 @@ const app = {
         })
         history.replaceState({}, 'LOGIN', '#login');               //change url
         window.addEventListener('popstate', app.poppin);
+        loginBtn.addEventListener('click', app.log);
     },
     nav: function (ev) {
         ev.preventDefault();
