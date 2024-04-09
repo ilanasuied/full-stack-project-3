@@ -360,3 +360,15 @@ tbody {
     pointer-events: none; 
     
 }
+
+.orderBtn{
+    width: 30px;
+}
+
+
+.features{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-around;
+}

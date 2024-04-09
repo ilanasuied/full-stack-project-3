@@ -31,7 +31,15 @@ class FXMLHttpRequest {
         if (xhr.onreadystatechange) {
             xhr.onreadystatechange();
         }
-
+        //in our case, the url is always good, but if the client send us a invalid url 
+        //the status will change is value
+        if(this.responseText === 'not found'){
+            xhr.status = 404;
+        }
+        else if(this.responseText === 'this page is being temporarily redirected'){
+            xhr.status = 302;
+        }
+        //and so on...
     }
 }
 

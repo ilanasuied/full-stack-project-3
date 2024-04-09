@@ -101,37 +101,45 @@
             <h2>Contacts Page</h2>
 
             <div id="contact-list">
-                <div class="button-search-container">
-                <button id="showAllButton">Show All</button>
-                <img src="./IMG/add-user.png" alt="add user image" id="addContactButton">
-                    <!-- search bar right align -->
+                <div class="features">
+                    <button id="showAllButton">Show All</button>
+                    <img src="./IMG/add-user.png" alt="add user image" id="addContactButton">
+                    
+                    <div class="button-search-container">
+                       <!-- search bar right align -->
                         <div class="search">
-                            <form >
-                                <input id="searchbar" type="text"
-                                    placeholder=" Search Contact"
-                                    name="search">
+                            <form>
+                                <input id="searchbar" type="text" placeholder=" Search Contact" name="search">
                                 <button id="searchbtn">
                                     <i class="fa fa-search">
                                     </i>
                                 </button>
                             </form>
                         </div>
-                </div>
-                
-                <!-- Modal -->
-                <div id="modal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2>Add a New Contact</h2>
-                    <!-- Form to add a contact -->
-                    <div id="contactForm">
-                        <label for="newContactName">Name:</label>
-                        <input type="text" id="newContactName" name="newContactName" required>
-                        <label for="phone">Phone:</label>
-                        <input type="text" id="phone_number" name="phone_number" required>
-                        <button type="submit" id="add_contact">Add</button>
+                    </div>
+                    <!-- alphabetical order button -->
+                    <div id="orderBtnAZ">
+                        <img src="./IMG/alphabetical-order.png" alt="a-z order" class="orderBtn">
+                    </div>
+                    <div id="orderBtnZA">
+                        <img src="./IMG/sort-from-z-to-a-in-reverse-alphabetical-order.png" alt="z-a order" class="orderBtn">
                     </div>
                 </div>
+
+                <!-- Modal -->
+                <div id="modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>Add a New Contact</h2>
+                        <!-- Form to add a contact -->
+                        <div id="contactForm">
+                            <label for="newContactName">Name:</label>
+                            <input type="text" id="newContactName" name="newContactName" required>
+                            <label for="phone">Phone:</label>
+                            <input type="text" id="phone_number" name="phone_number" required>
+                            <button type="submit" id="add_contact">Add</button>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="del" class="modal">
@@ -160,7 +168,7 @@
                             <button type="submit" id="up_contact">Save Changes</button>
                         </div>
                     </div>
-                    </div>
+                </div>
 
                 <table>
                     <thead>

@@ -1,3 +1,5 @@
+var alphabeticalOrder = false;
+var alphabeticalDownOrder = false;
 //new user registration
 var errorConnection = false;
 let registerbtn = document.getElementById('regist');
@@ -14,16 +16,16 @@ registerbtn.addEventListener('click', function () {
         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
             if (this.responseText !== 0) {
                 document.getElementById("msg").classList.add('msg');
-                if (this.responseText === 1){
+                if (this.responseText === 1) {
                     document.getElementById("msg").innerHTML = 'This username is already taken';
                 }
-                else if(this.responseText === 2){
+                else if (this.responseText === 2) {
                     document.getElementById("msg").innerHTML = 'Please enter a correct email';
                 }
-                else if(this.responseText === 3){
+                else if (this.responseText === 3) {
                     document.getElementById("msg").innerHTML = 'Username cannot be empty';
                 }
-                else if(this.responseText === 4){
+                else if (this.responseText === 4) {
                     document.getElementById("msg").innerHTML = 'Password cannot be empty';
                 }
                 errorConnection = true;
@@ -78,7 +80,7 @@ loginbtn.addEventListener('click', function () {
 let contact_page = document.getElementById('contact-page');
 contact_page.addEventListener('click', showAllContact);
 let showAllButton = document.getElementById('showAllButton');
-showAllButton.addEventListener('click', showAllContact) ;
+showAllButton.addEventListener('click', showAllContact);
 
 function showAllContact() {
     let ourRequest = new FXMLHttpRequest();
@@ -86,6 +88,27 @@ function showAllContact() {
         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
             let htmlContent = '';
             let contact_list = this.responseText;
+
+            //if alphabeticalOrder is true
+            if (alphabeticalOrder || alphabeticalDownOrder) {
+                // keeps all the keys
+                let keys = Object.keys(contact_list);
+
+                // sorted in alphabetical order
+                keys.sort();
+
+                //reverse the order to show z-a
+                if(alphabeticalDownOrder){
+                    keys.reverse();
+                }
+                let newContactList = {};
+                keys.forEach(function (k) {
+                    newContactList[k] = contact_list[k];
+                });
+                contact_list = newContactList;
+                alphabeticalOrder = false;
+                alphabeticalDownOrder = false;
+            }
             for (let key in contact_list) {
                 // element to delete
                 let bin = document.createElement("img");
@@ -98,11 +121,11 @@ function showAllContact() {
                 upd.src = "./IMG/update.png";
                 upd.className = "update";
                 upd.dataset.id = key;
-                upd.dataset.number = this.responseText[key];
+                upd.dataset.number = contact_list[key];
 
                 htmlContent += `<tr>
                                     <td>${key}</td>
-                                    <td>${this.responseText[key]}</td>
+                                    <td>${contact_list[key]}</td>
                                     <td>${bin.outerHTML}</td>
                                     <td>${upd.outerHTML}</td>
                                 </tr>`;
@@ -156,7 +179,7 @@ addbtn.addEventListener('click', function () {
     //verification of number
     let correct = numberAndNameVerification(name, number);
 
-    if(correct) {
+    if (correct) {
         let ourRequest = new FXMLHttpRequest();
 
         ourRequest.onreadystatechange = function () {
@@ -168,7 +191,7 @@ addbtn.addEventListener('click', function () {
         }
         ourRequest.open('PUT', localStorage);
         ourRequest.send(`name=${name}&number=${number}`);
-            
+
     }
     else {
         // Display error message with OK button
@@ -178,7 +201,7 @@ addbtn.addEventListener('click', function () {
 
         let okButton = document.createElement('button');
         okButton.textContent = 'OK';
-        okButton.addEventListener('click', function() {
+        okButton.addEventListener('click', function () {
             // Hide the error message and reset the form
             errorMessage.style.display = 'none';
 
@@ -197,7 +220,7 @@ addbtn.addEventListener('click', function () {
     document.getElementById("newContactName").value = '';
     document.getElementById("phone_number").value = '';
     document.getElementById('contactForm').style.display = 'block';
-    
+
 });
 
 
@@ -207,13 +230,13 @@ function numberAndNameVerification(name, number) {
 }
 
 function getErrorMessage(name, number) {
-    if(name.trim() === '') {
+    if (name.trim() === '') {
         return 'Contact name cannot be empty';
     }
-    if(number.length !== 10) {
+    if (number.length !== 10) {
         return 'Number must contain 10 digits exactly';
     }
-    if(!number.startsWith('05')) {
+    if (!number.startsWith('05')) {
         return 'Number must start with "05"';
     }
 }
@@ -316,9 +339,9 @@ document.addEventListener('click', function (event) {
             const newNumber = document.getElementById("updatePhone").value;
 
             // Verification of inputs
-            let correct = numberAndNameVerification(newName, newNumber)  ; 
+            let correct = numberAndNameVerification(newName, newNumber);
 
-            if(correct) {
+            if (correct) {
                 let ourRequest = new FXMLHttpRequest();
 
                 ourRequest.onreadystatechange = function () {
@@ -339,7 +362,7 @@ document.addEventListener('click', function (event) {
 
                 let okButton = document.createElement('button');
                 okButton.textContent = 'OK';
-                okButton.addEventListener('click', function() {
+                okButton.addEventListener('click', function () {
                     // Hide the error message and reset the form
                     errorMessage.style.display = 'none';
                     document.getElementById('updateForm').style.display = 'block'; // Ensure the form is visible
@@ -362,11 +385,11 @@ document.addEventListener('click', function (event) {
 let searchBar = document.getElementById('searchbar');
 let searchbtn = document.getElementById('searchbtn');
 
-searchbtn.addEventListener('click', function(event) {
+searchbtn.addEventListener('click', function (event) {
     event.preventDefault();
     //save the username and the password
     const name = searchBar.value.trim();  // Trim to remove any leading or trailing whitespace
-   
+
     if (name !== '') {  // Check if the contact name is not empty
         // Send a POST request to search for the contact
         let ourRequest = new FXMLHttpRequest();
@@ -390,11 +413,20 @@ searchbtn.addEventListener('click', function(event) {
         // Adjust the endpoint URL and request type according to your server configuration
         ourRequest.open('GET', localStorage);
         ourRequest.send(name); // Send the contact name in the request body
-    } 
-        
-    
+    }
+
+
 });
 
+document.getElementById('orderBtnAZ').addEventListener('click', function(){
+    alphabeticalOrder = true;
+    showAllContact();
+});
+
+document.getElementById('orderBtnZA').addEventListener('click', function(){
+    alphabeticalDownOrder = true;
+    showAllContact();
+});
 
 
 
