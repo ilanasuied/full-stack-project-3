@@ -74,7 +74,7 @@ li .nav-link {
     padding: 10px 15px;
 }
 
-.btn.white-btn {
+.btn.white-btn{
     background: rgba(255, 255, 255, 0.7);
 }
 
@@ -82,7 +82,7 @@ li .nav-link {
     background: rgba(255, 255, 255, 0.3);
 }
 
-btn.white-btn:hover {
+btn.white-btn:hover , #showAllButton:hover{
     background: rgba(255, 255, 255, 0.5);
 }
 
