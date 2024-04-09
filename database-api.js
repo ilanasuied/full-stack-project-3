@@ -102,7 +102,7 @@ function searchContact(database, name){
     // Search for the contact by name in the contact list
     let result = {};
     Object.keys(user.contact).forEach( key =>{
-        if (key.includes(name)) {
+        if (key.toLowerCase().includes(name)) {
             result[key] = user.contact[key];
         }
     });

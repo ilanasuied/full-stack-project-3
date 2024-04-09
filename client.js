@@ -388,7 +388,7 @@ let searchbtn = document.getElementById('searchbtn');
 searchbtn.addEventListener('click', function (event) {
     event.preventDefault();
     //save the username and the password
-    const name = searchBar.value.trim();  // Trim to remove any leading or trailing whitespace
+    const name = searchBar.value.trim().toLowerCase();  // Trim to remove any leading or trailing whitespace
 
     if (name !== '') {  // Check if the contact name is not empty
         // Send a POST request to search for the contact
