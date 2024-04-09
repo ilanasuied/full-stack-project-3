@@ -5,7 +5,6 @@ var errorConnection = false;
 let registerbtn = document.getElementById('regist');
 registerbtn.addEventListener('click', function () {
     errorConnection = false;
-    document.getElementById('msg').style.display = 'block';
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
     let name = document.getElementById('name').value;
@@ -15,6 +14,7 @@ registerbtn.addEventListener('click', function () {
     ourRequest.onreadystatechange = function () {
         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
             if (this.responseText !== 0) {
+                document.getElementById('msg').style.display = 'block';
                 document.getElementById("msg").classList.add('msg');
                 if (this.responseText === 1) {
                     document.getElementById("msg").innerHTML = 'This username is already taken';
@@ -34,6 +34,10 @@ registerbtn.addEventListener('click', function () {
                     clearInterval(interval);
                 }, 2000);
             }
+            document.getElementById('username').value = "";
+            document.getElementById('password').value = "";
+            document.getElementById('name').value = "";
+            document.getElementById('email').value = "";
         }
     }
 
@@ -50,7 +54,6 @@ contactPageLink.classList.add('disabled');
 
 loginbtn.addEventListener('click', function () {
     errorConnection = false;
-    document.getElementById('errorMsg').style.display = 'block';
     let username = document.getElementById('username-login').value;
     let password = document.getElementById('password-login').value;
     let ourRequest = new FXMLHttpRequest();
@@ -58,6 +61,7 @@ loginbtn.addEventListener('click', function () {
         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
             if (!this.responseText) {
                 errorConnection = true;
+                document.getElementById('errorMsg').style.display = 'block';
                 document.getElementById("errorMsg").classList.add('msg');
                 document.getElementById("errorMsg").innerHTML = 'Wrong username or password';
                 let interval = setInterval(function () {
@@ -69,6 +73,8 @@ loginbtn.addEventListener('click', function () {
         else {
             contactPageLink.classList.remove('disabled');
         }
+        document.getElementById('username-login').value = "";
+        document.getElementById('password-login').value = "";
     }
 
     ourRequest.open('POST', localStorage);
@@ -98,7 +104,7 @@ function showAllContact() {
                 keys.sort();
 
                 //reverse the order to show z-a
-                if(alphabeticalDownOrder){
+                if (alphabeticalDownOrder) {
                     keys.reverse();
                 }
                 let newContactList = {};
@@ -418,12 +424,12 @@ searchbtn.addEventListener('click', function (event) {
 
 });
 
-document.getElementById('orderBtnAZ').addEventListener('click', function(){
+document.getElementById('orderBtnAZ').addEventListener('click', function () {
     alphabeticalOrder = true;
     showAllContact();
 });
 
-document.getElementById('orderBtnZA').addEventListener('click', function(){
+document.getElementById('orderBtnZA').addEventListener('click', function () {
     alphabeticalDownOrder = true;
     showAllContact();
 });
