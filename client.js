@@ -1,5 +1,11 @@
 var alphabeticalOrder = false;
 var alphabeticalDownOrder = false;
+
+
+
+///////////////////////////////////////features for the register page/////////////////////////////////////////////
+
+
 //new user registration
 var errorConnection = false;
 let registerbtn = document.getElementById('regist');
@@ -46,6 +52,10 @@ registerbtn.addEventListener('click', function () {
 });
 
 
+/////////////////////////////////////////feature for the log in page////////////////////////////////////////////////
+
+
+
 // An existing user connects to the site
 let loginbtn = document.getElementById('btnsignin');
 const contactPageLink = document.getElementById('contact-page');
@@ -80,6 +90,10 @@ loginbtn.addEventListener('click', function () {
     ourRequest.open('POST', localStorage);
     ourRequest.send(`username=${username}&password=${password}`);
 });
+
+
+/////////////////////////////////////////feature for the contact page////////////////////////////////////////////////
+
 
 
 //Show all the contact list
@@ -341,48 +355,49 @@ document.addEventListener('click', function (event) {
         document.getElementById("updatePhone").value = event.target.dataset.number;
         updateRec.style.display = 'block';
         updateForm.style.display = 'block';
+    }
+});
 
-        // Handle the click on "Save Changes" button 
-        document.getElementById("up_contact").addEventListener('click', function () {
-            const newName = document.getElementById("updateName").value;
-            const newNumber = document.getElementById("updatePhone").value;
+ // Handle the click on "Save Changes" button 
+ document.getElementById("up_contact").addEventListener('click', function () {
+    const oldName = document.getElementById("updateName").value;
+    const newName = document.getElementById("updateName").value;
+    const newNumber = document.getElementById("updatePhone").value;
 
-            // Verification of inputs
-            let correct = numberAndNameVerification(newName, newNumber);
+    // Verification of inputs
+    let correct = numberAndNameVerification(newName, newNumber);
 
-            if (correct) {
-                let ourRequest = new FXMLHttpRequest();
+    if (correct) {
+        let ourRequest = new FXMLHttpRequest();
 
-                ourRequest.onreadystatechange = function () {
-                    if (ourRequest.readyState === 4 && ourRequest.status === 200) {
-                        updateForm.style.display = 'none';
-                        updateRec.style.display = 'none';
-                        showAllContact();
-                    }
-                }
-                ourRequest.open('PUT', localStorage);
-                ourRequest.send(`oldName=${oldName}&name=${newName}&number=${newNumber}`);
+        ourRequest.onreadystatechange = function () {
+            if (ourRequest.readyState === 4 && ourRequest.status === 200) {
+                updateForm.style.display = 'none';
+                updateRec.style.display = 'none';
+                showAllContact();
             }
-            else {
-                // Display error message with OK button
-                let errorMessage = document.createElement('div');
-                errorMessage.classList.add('msg');
-                errorMessage.innerHTML = 'Error: ' + getErrorMessage(newName, newNumber);
+        }
+        ourRequest.open('PUT', localStorage);
+        ourRequest.send(`oldName=${oldName}&name=${newName}&number=${newNumber}`);
+    }
+    else {
+        // Display error message with OK button
+        let errorMessage = document.createElement('div');
+        errorMessage.classList.add('msg');
+        errorMessage.innerHTML = 'Error: ' + getErrorMessage(newName, newNumber);
 
-                let okButton = document.createElement('button');
-                okButton.textContent = 'OK';
-                okButton.addEventListener('click', function () {
-                    // Hide the error message and reset the form
-                    errorMessage.style.display = 'none';
-                    document.getElementById('updateForm').style.display = 'block'; // Ensure the form is visible
+        let okButton = document.createElement('button');
+        okButton.textContent = 'OK';
+        okButton.addEventListener('click', function () {
+            // Hide the error message and reset the form
+            errorMessage.style.display = 'none';
+            document.getElementById('updateForm').style.display = 'block'; // Ensure the form is visible
 
-                });
-
-                errorMessage.appendChild(okButton);
-                document.getElementById('updateForm').appendChild(errorMessage);
-                errorMessage.style.display = 'block';
-            }
         });
+
+        errorMessage.appendChild(okButton);
+        document.getElementById('updateForm').appendChild(errorMessage);
+        errorMessage.style.display = 'block';
     }
 });
 
@@ -435,14 +450,3 @@ document.getElementById('orderBtnZA').addEventListener('click', function () {
     alphabeticalDownOrder = true;
     showAllContact();
 });
-
-
-
-
-
-
-
-
-
-
-
