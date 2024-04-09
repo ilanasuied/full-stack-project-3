@@ -89,6 +89,9 @@ let showAllButton = document.getElementById('showAllButton');
 showAllButton.addEventListener('click', showAllContact);
 
 function showAllContact() {
+
+    //clear the search field
+    document.getElementById('searchbar').value = '';
     let ourRequest = new FXMLHttpRequest();
     ourRequest.onreadystatechange = function () {
         if (ourRequest.readyState === 4 && ourRequest.status === 200) {
@@ -412,7 +415,6 @@ searchbtn.addEventListener('click', function (event) {
                                     </tr>`;
                 }
                 document.getElementById("tbody_contact").innerHTML = htmlContent;
-
             }
         }
 
