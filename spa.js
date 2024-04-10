@@ -1,9 +1,11 @@
+// create an object that encapsulates the functionality and behavior of the single-page application
 const app = {
     pages: [],
     show: new Event('show'),
-    init: function () {
-        const loginBtn = document.getElementById('btnsignin');
-        app.pages = document.querySelectorAll('.page');   //for each page add event of show
+    init: function () {     
+        // Initialize the spa       
+        const loginBtn = document.getElementById('btnsignin');  // save the login button
+        app.pages = document.querySelectorAll('.page');         // for each page add event of show
         app.pages.forEach((pg) => {
             pg.addEventListener('show', app.pageShown);
         })
@@ -11,10 +13,11 @@ const app = {
         document.querySelectorAll('.nav-link').forEach((link) => {   //add click event for the links
             link.addEventListener('click', app.nav);
         })
-        history.replaceState({}, 'LOGIN', '#login');               //change url
-        window.addEventListener('popstate', app.poppin);
+        history.replaceState({}, 'LOGIN', '#login');               // change url
+        window.addEventListener('popstate', app.poppin);           // popstate event is triggered when the user navigates through the session history 
         loginBtn.addEventListener('click', app.log);
     },
+    // handles navigation within the SPA when users click on navigation links.
     nav: function (ev) {
         ev.preventDefault();
         let currentPage = ev.target.getAttribute('data-target');       // get the attribute which is also the id of the page (the link we click on)
@@ -23,16 +26,16 @@ const app = {
 
         console.log(currentPage)
         history.pushState({}, currentPage, `#${currentPage}`);
-        document.getElementById(currentPage).dispatchEvent(app.show);
+        document.getElementById(currentPage).dispatchEvent(app.show);  //trigger an event on the selected DOM element
     },
     pageShown: function (ev) {
         ev.preventDefault();
-        const contactPageLink = document.getElementById('contact-page');
+        const contactPageLink = document.getElementById('contact-page');  // select the contact page link element
         // Initially disable the contact page link
         contactPageLink.classList.add('disabled');
 
         console.log('Page', ev.target.id, 'just shown');
-        let submitBtn = ev.target.querySelector('.submit');
+        let submitBtn = ev.target.querySelector('.submit');  // selected the element in page with submit button class
         console.log('Submit button:', submitBtn);
         if (submitBtn && submitBtn.value == "Register") {
             submitBtn.addEventListener('click', app.regist)
@@ -46,8 +49,9 @@ const app = {
 
     },
     poppin: function (ev) {
-        console.log(location.hash, 'popstate event');
-        let hash = location.hash.replace('#', '');
+        // handles navigation when users navigate back or forward
+        console.log(location.hash, 'popstate event');               //responsible for updating the application state and UI to reflect the new location
+        let hash = location.hash.replace('#', '');                  // extracts hash -> the part after the # symbol , indicates the current "state" or location.
         document.querySelector('.active').classList.remove('active');
         document.getElementById(hash).classList.add('active');
         console.log(hash)
@@ -72,9 +76,6 @@ const app = {
             document.getElementById('login').dispatchEvent(app.show);
         }
     },
-    checkLogin: function (ev) {
-        ev.preventDefault();
-
-    }
+    
 }
 document.addEventListener('DOMContentLoaded', app.init)
